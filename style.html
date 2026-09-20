@@ -109,9 +109,14 @@
       </p>
 
       <div class="style-actions">
-        <a class="primary-btn" href="index.html#collections">
-          Browse Collections →
+        <a class="primary-btn" id="previewLink" href="preview.html">
+          Preview Animation →
         </a>
+
+        <a class="secondary-btn" href="index.html#collections">
+          Browse Collections
+        </a>
+
         <a class="secondary-btn" id="backToStyles" href="animation.html">
           ← Back to Styles
         </a>
@@ -177,6 +182,14 @@
     const backToStyles = document.getElementById("backToStyles");
     backToStyles.href =
       "animation.html?collection=" + encodeURIComponent(collectionKey);
+
+    const previewLink = document.getElementById("previewLink");
+    const previewUrl = new URL("preview.html", window.location.href);
+
+    previewUrl.searchParams.set("collection", collectionKey);
+    previewUrl.searchParams.set("style", styleName);
+
+    previewLink.href = previewUrl.href;
   </script>
 </body>
 </html>
