@@ -169,7 +169,20 @@
       from { box-shadow: 0 0 5px var(--cyan); }
       to { box-shadow: 0 0 35px var(--accent), 0 0 55px var(--cyan); }
     }
+    .slide-in {
+      animation: slideIn 2s ease-in-out infinite alternate;
+    }
 
+    @keyframes slideIn {
+      from {
+        transform: translateX(-35px);
+        opacity: 0.4;
+      }
+      to {
+        transform: translateX(35px);
+        opacity: 1;
+      }
+    }
     .card-info {
       padding: 20px;
     }
