@@ -647,3 +647,57 @@ a {
     min-height: 240px;
   }
 }
+/* ===== ANIMATION PREVIEW EFFECTS ===== */
+
+.preview-placeholder {
+  perspective: 900px;
+  overflow: hidden;
+}
+
+.preview-placeholder h2 {
+  animation: previewFloat 2.5s ease-in-out infinite;
+}
+
+.preview-placeholder > span {
+  display: inline-block;
+  animation: previewBounce 1.2s ease-in-out infinite;
+}
+
+@keyframes previewFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes previewBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.1);
+  }
+}
+
+.preview-placeholder.is-playing {
+  animation: previewGlow 2s ease-in-out infinite;
+}
+
+@keyframes previewGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(139, 92, 246, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-placeholder,
+  .preview-placeholder h2,
+  .preview-placeholder > span {
+    animation: none;
+  }
+}
