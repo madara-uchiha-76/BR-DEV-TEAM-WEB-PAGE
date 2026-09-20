@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Collection | BR DEV TEAM</title>
+
+  <style>
+    :root {
+      --bg: #080b12;
+      --panel: #111827;
+      --text: #f4f7ff;
+      --muted: #a4aec2;
+      --accent: #7c5cff;
+      --cyan: #31d6ff;
+      --border: rgba(255,255,255,.13);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: #0b0f19;
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .logo span {
+      color: var(--cyan);
+    }
+
+    .back {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 70px 0 35px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin: 12px 0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: auto;
+    }
+
+    .styles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      padding: 25px 0 80px;
+    }
+
+    .style-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .stage {
+      height: 190px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(124,92,255,.2), transparent 65%),
+        #090d17;
+      overflow: hidden;
+    }
+
+    .shape {
+      width: 70px;
+      height: 70px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--cyan), var(--accent));
+    }
+
+    .float {
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    .spin {
+      animation: spin 4s linear infinite;
+    }
+
+    .pulse {
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    .bounce {
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    .glow {
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .slide-in {
+      animation: slideIn 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(15px);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px var(--cyan);
+      }
+
+      to {
+        box-shadow: 0 0 35px var(--accent), 0 0 55px var(--cyan);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-35px);
+        opacity: .3;
+      }
+
+      to {
+        transform: translateX(35px);
+        opacity: 1;
+      }
+    }
+
+    .card-info {
+      padding: 20px;
+    }
+
+    .number {
+      color: var(--cyan);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin: 5px 0 8px;
+    }
+
+    .card-info p {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-bottom: 16px;
+    }
+
+    .select-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 15px;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(110deg, var(--accent), #5140d8);
+    }
+
+    .select-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 850px) {
+      .styles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .styles {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="index.html">BR <span>DEV TEAM</span></a>
+      <a class="back" href="index.html">← Back to Home</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Animation Library</div>
+      <h1 id="collectionTitle">Modern Motion</h1>
+      <p id="collectionDescription">
+        Explore animated effects and choose a style for your website.
+      </p>
+    </section>
+
+    <section class="styles" aria-label="Animation styles">
+
+      <!-- STYLE 01 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape float"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 01</div>
+          <h2>Floating Gradient</h2>
+          <p>A smooth floating effect for modern website sections.</p>
+          <button class="select-btn" data-style="Floating Gradient">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+      <!-- STYLE 02 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape spin"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 02</div>
+          <h2>Infinite Spin</h2>
+          <p>A continuous rotation effect for icons and visual elements.</p>
+          <button class="select-btn" data-style="Infinite Spin">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+      <!-- STYLE 03 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape pulse"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 03</div>
+          <h2>Soft Pulse</h2>
+          <p>A gentle scaling effect that draws attention.</p>
+          <button class="select-btn" data-style="Soft Pulse">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+      <!-- STYLE 04 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape bounce"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 04</div>
+          <h2>Motion Bounce</h2>
+          <p>A playful bounce animation for interactive designs.</p>
+          <button class="select-btn" data-style="Motion Bounce">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+      <!-- STYLE 05 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape glow"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 05</div>
+          <h2>Neon Glow</h2>
+          <p>A glowing animation for bold and futuristic interfaces.</p>
+          <button class="select-btn" data-style="Neon Glow">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+      <!-- STYLE 06 -->
+      <article class="style-card">
+        <div class="stage">
+          <div class="shape slide-in"></div>
+        </div>
+        <div class="card-info">
+          <div class="number">STYLE 06</div>
+          <h2>Slide In</h2>
+          <p>A smooth sliding effect for modern website elements.</p>
+          <button class="select-btn" data-style="Slide In">
+            Select This Style
+          </button>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> BR DEV TEAM DEVELOPERS
+    </div>
+  </footer>
+
+  <script>
+    const collections = {
+      modern: {
+        title: "Modern Motion",
+        description: "Clean and smooth animation styles for modern websites."
+      },
+      creative: {
+        title: "Creative Effects",
+        description: "Expressive motion effects for bold and creative designs."
+      },
+      premium: {
+        title: "Premium UI",
+        description: "Polished animation ideas for premium user interfaces."
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const collectionKey = params.get("collection") || "modern";
+    const selectedCollection = collections[collectionKey] || collections.modern;
+
+    document.getElementById("collectionTitle").textContent =
+      selectedCollection.title;
+
+    document.getElementById("collectionDescription").textContent =
+      selectedCollection.description;
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    document.querySelectorAll(".select-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const styleName = button.dataset.style;
+
+        const message =
+          `Hi BR DEV TEAM DEVELOPERS! I'm interested in the "${styleName}" animation from the "${selectedCollection.title}" collection.`;
+
+        const email = "brdevteam@example.com";
+        const subject = encodeURIComponent("Animation Style Request");
+        const body = encodeURIComponent(message);
+
+        window.location.href =
+          `mailto:${email}?subject=${subject}&body=${body}`;
+      });
+    });
+  </script>
+</body>
+</html>
