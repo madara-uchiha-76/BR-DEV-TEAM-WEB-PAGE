@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Preview | BR DEV TEAM</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .preview-page {
+      padding: 55px 8%;
+      min-height: 75vh;
+    }
+
+    .preview-box {
+      min-height: 360px;
+      margin: 30px 0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: radial-gradient(circle at center, #282044, #101019 70%);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-object {
+      font-size: clamp(70px, 12vw, 130px);
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: 0 0 45px rgba(167, 139, 250, 0.6);
+      animation: previewFloat 3s ease-in-out infinite;
+    }
+
+    .preview-box.glow .preview-object {
+      animation: previewGlow 2s ease-in-out infinite alternate;
+    }
+
+    .preview-box.spin .preview-object {
+      animation: previewSpin 5s linear infinite;
+    }
+
+    .preview-box.pulse .preview-object {
+      animation: previewPulse 1.5s ease-in-out infinite;
+    }
+
+    .preview-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .preview-controls button {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .preview-controls button:hover {
+      border-color: var(--accent);
+    }
+
+    .preview-controls .active {
+      background: var(--accent);
+      color: #171020;
+    }
+
+    .preview-info {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .preview-info p {
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    @keyframes previewFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-24px); }
+    }
+
+    @keyframes previewGlow {
+      from { filter: drop-shadow(0 0 10px #a78bfa); }
+      to { filter: drop-shadow(0 0 45px #a78bfa); }
+    }
+
+    @keyframes previewSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes previewPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    @media (max-width: 600px) {
+      .preview-page {
+        padding: 40px 6%;
+      }
+
+      .preview-box {
+        min-height: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#collections">Collections</a>
+    </nav>
+  </header>
+
+  <main class="preview-page">
+    <a class="back-link" id="backLink" href="animation.html">
+      ← Back to Styles
+    </a>
+
+    <div class="preview-info">
+      <p class="eyebrow">ANIMATION PREVIEW</p>
+      <h1 id="previewTitle">Animation Preview</h1>
+      <p id="previewDescription">Preview your selected animation.</p>
+    </div>
+
+    <section class="preview-box" id="previewBox">
+      <div class="preview-object" id="previewObject">BR</div>
+    </section>
+
+    <div class="preview-controls">
+      <button type="button" data-animation="float" class="active">Float</button>
+      <button type="button" data-animation="glow">Glow</button>
+      <button type="button" data-animation="spin">Spin</button>
+      <button type="button" data-animation="pulse">Pulse</button>
+      <button type="button" id="restartButton">Restart</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <p>© <span id="year"></span> BR DEV TEAM. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const collectionKey = params.get("collection") || "motion";
+    const styleName = params.get("style") || "Smooth Motion";
+
+    const previewTitle = document.getElementById("previewTitle");
+    const previewDescription = document.getElementById("previewDescription");
+    const previewBox = document.getElementById("previewBox");
+    const previewObject = document.getElementById("previewObject");
+    const backLink = document.getElementById("backLink");
+
+    previewTitle.textContent = styleName;
+    previewDescription.textContent =
+      "Try different animation effects on this preview.";
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    backLink.href =
+      "animation.html?collection=" + encodeURIComponent(collectionKey);
+
+    const symbols = {
+      "Smooth Motion": "〰",
+      "3D Motion": "◇",
+      "Kinetic Text": "Aa",
+      "Glow Effect": "✦",
+      "Glitch Effect": "▧",
+      "Neon Effect": "✧",
+      "Abstract Design": "◈",
+      "Particle Motion": "⁙",
+      "Creative Reveal": "✳"
+    };
+
+    previewObject.textContent = symbols[styleName] || "BR";
+
+    function setAnimation(animationName) {
+      previewBox.classList.remove("glow", "spin", "pulse");
+      previewObject.style.animation = "";
+
+      if (animationName === "glow") {
+        previewBox.classList.add("glow");
+      } else if (animationName === "spin") {
+        previewBox.classList.add("spin");
+      } else if (animationName === "pulse") {
+        previewBox.classList.add("pulse");
+      } else {
+        previewObject.style.animation = "previewFloat 3s ease-in-out infinite";
+      }
+
+      document.querySelectorAll("[data-animation]").forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button.dataset.animation === animationName
+        );
+      });
+    }
+
+    document.querySelectorAll("[data-animation]").forEach((button) => {
+      button.addEventListener("click", () => {
+        setAnimation(button.dataset.animation);
+      });
+    });
+
+    document.getElementById("restartButton").addEventListener("click", () => {
+      const current = previewBox.className;
+      previewBox.className = "preview-box";
+
+      previewObject.style.animation = "none";
+      void previewObject.offsetWidth;
+
+      previewBox.className = current;
+      const activeButton = document.querySelector(
+        "[data-animation].active"
+      );
+
+      setAnimation(activeButton ? activeButton.dataset.animation : "float");
+    });
+  </script>
+</body>
+</html>
