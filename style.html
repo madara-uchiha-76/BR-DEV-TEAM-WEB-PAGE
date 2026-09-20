@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Animation | BR DEV TEAM</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .style-page {
+      min-height: 75vh;
+      padding: 70px 8%;
+      display: grid;
+      place-items: center;
+    }
+
+    .style-panel {
+      width: 100%;
+      max-width: 760px;
+      padding: 48px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .style-symbol {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle, #6d45c7, #171322);
+      color: #fff;
+      font-size: 72px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .style-panel h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+    }
+
+    .style-panel p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .style-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .style-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .secondary-btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .secondary-btn:hover {
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .style-page {
+        padding: 45px 6%;
+      }
+
+      .style-panel {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#collections">Collections</a>
+    </nav>
+  </header>
+
+  <main class="style-page">
+    <section class="style-panel">
+      <div class="style-symbol" id="styleSymbol">✦</div>
+      <p class="style-label" id="collectionLabel">BR DEV TEAM COLLECTION</p>
+      <h1 id="styleTitle">Selected Animation</h1>
+      <p id="styleDescription">
+        Your selected animation style will appear here.
+      </p>
+
+      <div class="style-actions">
+        <a class="primary-btn" href="index.html#collections">
+          Browse Collections →
+        </a>
+        <a class="secondary-btn" id="backToStyles" href="animation.html">
+          ← Back to Styles
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <p>© <span id="year"></span> BR DEV TEAM. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const collectionNames = {
+      motion: "Motion Animations",
+      effects: "Modern Effects",
+      creative: "Creative Designs"
+    };
+
+    const styleDescriptions = {
+      "Smooth Motion": "Clean movement with smooth transitions.",
+      "3D Motion": "Depth-inspired animation and dimensional movement.",
+      "Kinetic Text": "Animated typography and moving text effects.",
+      "Glow Effect": "Bright glowing visuals and soft light effects.",
+      "Glitch Effect": "Digital distortion-inspired visual effects.",
+      "Neon Effect": "Neon-inspired colors and luminous designs.",
+      "Abstract Design": "Expressive shapes and experimental visuals.",
+      "Particle Motion": "Particle-inspired motion and visual patterns.",
+      "Creative Reveal": "Reveal-inspired transitions and visual storytelling."
+    };
+
+    const styleSymbols = {
+      "Smooth Motion": "〰",
+      "3D Motion": "◇",
+      "Kinetic Text": "Aa",
+      "Glow Effect": "✦",
+      "Glitch Effect": "▧",
+      "Neon Effect": "✧",
+      "Abstract Design": "◈",
+      "Particle Motion": "⁙",
+      "Creative Reveal": "✳"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const collectionKey = params.get("collection") || "motion";
+    const styleName = params.get("style") || "Smooth Motion";
+
+    document.getElementById("collectionLabel").textContent =
+      collectionNames[collectionKey] || "BR DEV TEAM COLLECTION";
+
+    document.getElementById("styleTitle").textContent = styleName;
+
+    document.getElementById("styleDescription").textContent =
+      styleDescriptions[styleName] ||
+      "Explore this animation style from BR DEV TEAM.";
+
+    document.getElementById("styleSymbol").textContent =
+      styleSymbols[styleName] || "✦";
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const backToStyles = document.getElementById("backToStyles");
+    backToStyles.href =
+      "animation.html?collection=" + encodeURIComponent(collectionKey);
+  </script>
+</body>
+</html>
