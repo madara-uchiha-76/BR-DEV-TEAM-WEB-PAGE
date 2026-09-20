@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation Styles | BR DEV TEAM</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .animation-page {
+      min-height: 80vh;
+      padding: 70px 8%;
+    }
+
+    .animation-header {
+      margin-bottom: 38px;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .animation-header h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.1;
+      letter-spacing: -3px;
+      margin-bottom: 15px;
+    }
+
+    .animation-header p {
+      color: var(--muted);
+    }
+
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .style-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .style-preview {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle, #3b2b68, #11111b 70%);
+    }
+
+    .style-preview span {
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--accent);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .style-details {
+      padding: 22px;
+    }
+
+    .style-details h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .style-details p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .select-style-btn {
+      border: 0;
+      border-radius: 7px;
+      padding: 11px 16px;
+      background: var(--accent);
+      color: #171020;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .select-style-btn:hover {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 850px) {
+      .style-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .animation-page {
+        padding: 50px 6%;
+      }
+
+      .style-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#collections">Collections</a>
+    </nav>
+  </header>
+
+  <main class="animation-page">
+    <div class="animation-header">
+      <a class="back-link" href="index.html#collections">← Back to Collections</a>
+      <p class="eyebrow">BR DEV TEAM COLLECTION</p>
+      <h1 id="collectionTitle">Animation Styles</h1>
+      <p id="collectionDescription">Choose an animation style to continue.</p>
+    </div>
+
+    <div class="style-grid" id="styleGrid"></div>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="index.html">BR<span>DEV</span> TEAM</a>
+    <p>© <span id="year"></span> BR DEV TEAM. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const collections = {
+      motion: {
+        title: "Motion Animations",
+        description: "Explore smooth motion and creative visual effects.",
+        styles: [
+          {
+            name: "Smooth Motion",
+            description: "Clean movement with smooth transitions.",
+            symbol: "〰"
+          },
+          {
+            name: "3D Motion",
+            description: "Depth-inspired animation and dimensional movement.",
+            symbol: "◇"
+          },
+          {
+            name: "Kinetic Text",
+            description: "Animated typography and moving text effects.",
+            symbol: "Aa"
+          }
+        ]
+      },
+
+      effects: {
+        title: "Modern Effects",
+        description: "Discover modern effects and digital transitions.",
+        styles: [
+          {
+            name: "Glow Effect",
+            description: "Bright glowing visuals and soft light effects.",
+            symbol: "✦"
+          },
+          {
+            name: "Glitch Effect",
+            description: "Digital distortion-inspired visual effects.",
+            symbol: "▧"
+          },
+          {
+            name: "Neon Effect",
+            description: "Neon-inspired colors and luminous designs.",
+            symbol: "✧"
+          }
+        ]
+      },
+
+      creative: {
+        title: "Creative Designs",
+        description: "Find fresh ideas for your next creative project.",
+        styles: [
+          {
+            name: "Abstract Design",
+            description: "Expressive shapes and experimental visuals.",
+            symbol: "◈"
+          },
+          {
+            name: "Particle Motion",
+            description: "Particle-inspired motion and visual patterns.",
+            symbol: "⁙"
+          },
+          {
+            name: "Creative Reveal",
+            description: "Reveal-inspired transitions and visual storytelling.",
+            symbol: "✳"
+          }
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const collectionKey = params.get("collection") || "motion";
+    const selectedCollection = collections[collectionKey] || collections.motion;
+
+    document.getElementById("collectionTitle").textContent =
+      selectedCollection.title;
+
+    document.getElementById("collectionDescription").textContent =
+      selectedCollection.description;
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    const styleGrid = document.getElementById("styleGrid");
+
+    selectedCollection.styles.forEach((style) => {
+      const card = document.createElement("article");
+      card.className = "style-card";
+
+      card.innerHTML = `
+        <div class="style-preview">
+          <span>${style.symbol}</span>
+        </div>
+        <div class="style-details">
+          <h2>${style.name}</h2>
+          <p>${style.description}</p>
+          <button class="select-style-btn" type="button">
+            Select Style →
+          </button>
+        </div>
+      `;
+
+      card.querySelector(".select-style-btn").addEventListener("click", () => {
+        const nextUrl = new URL("style.html", window.location.href);
+        nextUrl.searchParams.set("collection", collectionKey);
+        nextUrl.searchParams.set("style", style.name);
+        window.location.href = nextUrl.href;
+      });
+
+      styleGrid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
